@@ -15,4 +15,4 @@ app.use('/api/payment', paymentRoutes);
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => app.listen(5000, () => console.log('Server started on port 5000')))
-  .catch((err) => console.error(err));
+  .catch((err) => console.error('MongoDB error:', err));
