@@ -4,7 +4,14 @@ const API = axios.create({
     baseURL: 'http://localhost:5000/api',
 });
 
-// Automatically attach token if available
+// ✅ Attach token to all requests
+API.interceptors.request.use((config) => {
+    const token = localStorage.getItem('token');
+    if (token) config.headers.Authorization = `Bearer ${token}`;
+    return config;
+});
+
+// ✅ Redirect to login on 401/403
 API.interceptors.response.use(
     res => res,
     err => {
@@ -15,6 +22,5 @@ API.interceptors.response.use(
         return Promise.reject(err);
     }
 );
-
 
 export default API;
